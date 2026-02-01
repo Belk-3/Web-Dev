@@ -24,6 +24,7 @@ main{
 
 #rightBlock{
     width: 396px;
+    
 }
 #window{
     background-color: white;
@@ -110,6 +111,8 @@ main{
     margin-top: 24px;
     font-size: 14px;
     color: #1c1e21;
+    text-align: center;
+    
         
 }
 #buisnessPage a{

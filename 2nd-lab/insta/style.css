@@ -1,0 +1,219 @@
+/* =======================
+   RESET
+======================= */
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+    background: #0b141a;
+    color: #fff;
+}
+
+/* =======================
+   MAIN WRAP (общий фон)
+======================= */
+main {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 50px;
+    padding: 60px 40px;
+
+    /* общий фон всей верхней части */
+    background: radial-gradient(900px circle at 30% 30%, #1b2e38 0%, #0b141a 55%);
+}
+
+/* =======================
+   LEFT SIDE
+======================= */
+.logoAndPhoto {
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.logoAndPhoto h1 {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.25;
+    margin: 0 0 40px;
+    color: #e9eef2;
+}
+
+.logoAndPhoto img {
+    width: 520px;
+    max-width: 520px;
+    margin-top: 10px;
+
+}
+
+/* градиентный текст close friends */
+.highlight {
+    background: linear-gradient(90deg, #ff7a18, #ff2f92);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* =======================
+   DIVIDER (вертикальная линия)
+======================= */
+.divider {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.08);
+        align-self: stretch;
+        opacity: 0.6;
+
+}
+
+/* =======================
+   RIGHT SIDE (LOGIN)
+======================= */
+#login {
+    padding: 28px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 360px;
+
+    /* более тёмная зона справа */
+    background: radial-gradient(600px circle at 50% 0%, #112634 0%, #0b141a 65%);
+}
+
+#login h2 {
+    margin: 0 0 18px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* =======================
+   FORM
+======================= */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input {
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+    font-size: 14px;
+}
+
+form input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+form input:focus {
+    outline: none;
+    border-color: #1d9bf0;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* =======================
+   BUTTONS / LINKS
+======================= */
+#blueButton {
+    margin-top: 10px;
+    padding: 14px;
+    background: #1d9bf0;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#blueButton:hover { background: #1a8cd8; }
+
+#forgot {
+    margin-top: 14px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+}
+
+/* fb button */
+#logInFacebook {
+    margin-top: 26px;
+    padding: 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #e7f3ff;
+    text-decoration: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+#newAccount {
+    margin-top: 12px;
+    padding: 14px;
+    border-radius: 999px;
+    border: 1px solid #1d9bf0;
+    color: #1d9bf0;
+    text-decoration: none;
+
+    display: block;
+}
+
+/* META LOGO */
+svg[aria-label="Meta logo"] {
+    margin-top: 10px;
+    opacity: 0.25;
+    width: 80px;
+    display: flex;
+    margin-left: 110px;
+}
+
+/* =======================
+   FOOTER + линия сверху
+======================= */
+footer {
+    background: #0b141a;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 40px 20px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+footer a {
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+}
+/* =======================
+   TOP LOGO
+======================= */
+
+
+.instaLogo {
+    width: 32px;
+    height: 32px;
+    
+}
+
