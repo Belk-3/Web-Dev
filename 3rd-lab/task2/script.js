@@ -1,18 +1,24 @@
 const form = document.getElementById('todo-form');
 const input = document.getElementById('todo-input');
 const todoList = document.getElementById('todo-list');
-
-form.addEventListener('submit', function (event) {
+form.addEventListener('submit', function(event) {
     event.preventDefault();
 
     const taskText = input.value.trim();
-    if (taskText === '') {
+
+    if (taskText === '') return;
+
+
+    if (taskText.length > 250) {
+        alert('Text is too long (max 250 characters)');
         return;
     }
 
     addTodoItem(taskText);
     input.value = '';
 });
+
+
 
 function addTodoItem(text) {
     const listItem = document.createElement('li');
@@ -28,7 +34,7 @@ function addTodoItem(text) {
     span.textContent = text;
     span.className = 'todo-text';
 
-    checkbox.addEventListener('change', function () {
+    checkbox.addEventListener('change', function() {
         span.classList.toggle('done');
     });
 
@@ -36,7 +42,7 @@ function addTodoItem(text) {
     deleteButton.textContent = 'Delete';
     deleteButton.className = 'delete-btn';
 
-    deleteButton.addEventListener('click', function () {
+    deleteButton.addEventListener('click', function() {
         todoList.removeChild(listItem);
     });
 
@@ -47,4 +53,6 @@ function addTodoItem(text) {
     listItem.appendChild(deleteButton);
 
     todoList.appendChild(listItem);
+
+
 }

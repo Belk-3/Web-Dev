@@ -83,3 +83,11 @@ body {
     cursor: pointer;
     border-radius: 4px;
 }
+
+.todo-text {
+    max-width: 45ch;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    flex: 1;
+    min-width: 0;
+}
