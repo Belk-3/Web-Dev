@@ -1,0 +1,199 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #f0f2f5;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1c1e21;
+}
+main{
+    min-height:76.4vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 120px;
+    
+    
+}
+
+
+#rightBlock{
+    width: 396px;
+    
+}
+#window{
+    background-color: white;
+    padding:  20px 20px 28px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .1);
+    text-align: center;
+
+
+}
+#window form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#window input{
+    height: 52px;
+    font-size: 17px;
+    padding: 0 14px;
+    border-radius: 6px;
+    border: 1px solid #dddfe2
+}
+#window input:focus{
+    border-color: #1877f2;
+    box-shadow: 0 0 0 2px rgba(24,119,242,0.2);
+    outline: none;
+}
+#blueButton{
+    height: 48px;
+    background: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#blueButton:hover{
+    background-color: #166fe5;
+}
+#forgot{
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #1877f2;
+    text-decoration: none;
+    margin-top: 12px;
+}
+#forgot:hover{
+    text-decoration: underline;
+
+}
+.deviderLine{
+    height: 1px;
+    background: #dadde1;
+    margin: 16px 0;
+}
+
+.greenButton{
+    display: inline-flex;   
+    padding: 16px 16px;
+    background: #42b72a;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.greenButton:hover{
+    background-color: #36a420;
+}
+
+#blueButton,
+.greenButton{
+    transition: background-color .2s ease;
+}
+ 
+#buisnessPage{
+    margin-top: 24px;
+    font-size: 14px;
+    color: #1c1e21;
+    text-align: center;
+    
+        
+}
+#buisnessPage a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+#buisnessPage a:hover{
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+#leftBlock{
+    
+    max-width: 500px;
+    margin-top: 64px;
+    padding-right: 20px;
+}
+#facebookWord{
+    width: 320px;
+    height: auto;
+       
+    margin: -28px;
+    margin-bottom:-10px;
+    
+}
+#leftBlock h2{
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+    max-width: 480px;
+    color: #1c1e21;
+}
+
+
+
+
+
+
+
+
+footer{
+    background: white;
+    padding: 20px 16px 64px;
+    font-size: 12px;
+    color: #737373;
+}
+footer nav,
+footer .copyright{
+    max-width: 980px;
+    margin: 0 auto; 
+}
+
+footer{
+    font-size: 12px;
+    color: #737373;
+}
+footer a{
+    color: #737373;
+    text-decoration: none;
+}
+.footerLinks{
+    margin-top: 8px;
+    line-height: 1.6;
+}
+footer ul{
+    list-style: none;
+}
+footer nav ul{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+.copyright{
+    margin-top: 10px;
+}

@@ -1,0 +1,235 @@
+/* --- CSS VARIABLES & RESET --- */
+:root {
+    --fb-blue: #3b5998;
+    --fb-dark-blue: #2d4373;
+    --bg-gray: #e9ebee;
+    --border-color: #d3d6db;
+    --text-primary: #1c1e21;
+    --text-secondary: #606770;
+    --link-color: #3b5998;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #fff;
+    color: var(--text-primary);
+    font-size: 13px;
+    line-height: 1.34;
+}
+
+a { text-decoration: none; color: var(--link-color); cursor: pointer; }
+a:hover { text-decoration: underline; }
+ul { list-style: none; }
+
+/* --- HEADER (Flexbox) --- */
+.top-bar {
+    background-color: var(--fb-blue);
+    height: 42px;
+    display: flex;
+    align-items: center;
+    padding: 0 15%; /* Centering the content roughly like standard displays */
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--fb-dark-blue);
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.search-form {
+    flex-grow: 1;
+    max-width: 400px;
+    display: flex;
+}
+
+.search-form input {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid var(--fb-dark-blue);
+    border-radius: 2px;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 20px;
+}
+
+.main-nav a {
+    color: white;
+    font-weight: bold;
+}
+
+/* --- MAIN LAYOUT (CSS Grid) --- */
+.container {
+    display: grid;
+    /* Left Sidebar | Main Content | Right Sidebar */
+    grid-template-columns: 180px 1fr 240px;
+    gap: 20px;
+    max-width: 980px;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+/* --- LEFT SIDEBAR --- */
+.profile-pic {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 4px;
+    background: white;
+    margin-bottom: 15px;
+}
+
+.side-menu li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: var(--fb-blue);
+}
+
+.side-section-title {
+    color: var(--text-secondary);
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+    display: block;
+}
+
+.family-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.family-member img { width: 100%; height: auto; }
+.family-member span { font-size: 11px; color: var(--link-color); display: block;}
+
+/* --- MAIN CONTENT --- */
+.profile-header {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.profile-header h1 {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.header-actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: 5px;
+}
+
+.btn {
+    background: #f5f6f7;
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    color: #4b4f56;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.summary-icons {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.photo-strip {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+.photo-strip img {
+    width: 95px;
+    height: 65px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+}
+
+/* Info Section Styling */
+.info-section {
+    border-top: 1px solid #e9e9e9;
+    padding-top: 15px;
+}
+
+.section-header {
+    background: #f7f7f7;
+    padding: 8px;
+    font-weight: bold;
+    color: #333;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.info-item {
+    display: flex; /* Flexbox for Image + Text layout */
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.info-logo {
+    width: 50px;
+    height: 50px;
+    background: #eee;
+    object-fit: contain;
+}
+
+.info-details h3 {
+    font-size: 13px;
+    color: var(--link-color);
+    margin-bottom: 2px;
+}
+
+.info-details p {
+    color: var(--text-secondary);
+    font-size: 11px;
+}
+
+/* --- RIGHT SIDEBAR --- */
+.right-sidebar h3 {
+    font-size: 11px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.ad-unit {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.ad-unit img { width: 70px; height: 50px; object-fit: cover; }
+.ad-content h4 { color: var(--link-color); font-size: 11px; margin-bottom: 2px;}
+.ad-content p { font-size: 11px; color: #333; }
+
+/* Utility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
