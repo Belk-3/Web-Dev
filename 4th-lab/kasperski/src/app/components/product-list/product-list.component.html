@@ -1,0 +1,170 @@
+<div class="product-list-container">
+  <header class="page-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <h1 class="page-title">Online Store</h1>
+        <p class="page-subtitle">Товары с Kaspi.kz</p>
+      </div>
+      <div class="stats-section" *ngIf="!isLoading">
+        <div class="stat-item">
+          <span class="stat-value">{{ totalProducts }}</span>
+          <span class="stat-label">Товаров</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ averageRating }}</span>
+          <span class="stat-label">Средний рейтинг</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ categories.length }}</span>
+          <span class="stat-label">Категорий</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="controls-section" *ngIf="!isLoading">
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Поиск товаров..."
+          [value]="searchQuery"
+          (input)="onSearch($event)"
+        >
+        <button 
+          class="clear-search-btn" 
+          *ngIf="searchQuery"
+          (click)="clearSearch()"
+          type="button"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+
+    <div class="filters-row">
+      <div class="filter-group">
+        <label class="filter-label">Категория:</label>
+        <select 
+          class="filter-select" 
+          [value]="currentCategory"
+          (change)="onCategoryChange($any($event.target).value)"
+        >
+          <option value="all">Все категории ({{ totalProducts }})</option>
+          <option 
+            *ngFor="let category of categories" 
+            [value]="category"
+          >
+            {{ category }} ({{ getCategoryCount(category) }})
+          </option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Сортировка:</label>
+        <select 
+          class="filter-select" 
+          [value]="currentSort"
+          (change)="onSortChange($any($event.target).value)"
+        >
+          <option value="default">По умолчанию</option>
+          <option value="price-asc">Цена: по возрастанию</option>
+          <option value="price-desc">Цена: по убыванию</option>
+          <option value="rating-desc">Рейтинг: высокий → низкий</option>
+          <option value="name-asc">Название: А → Я</option>
+        </select>
+      </div>
+      <div class="view-toggle">
+        <button 
+          class="view-btn" 
+          [class.active]="viewMode === 'grid'"
+          (click)="viewMode = 'grid'"
+          type="button"
+          title="Сетка"
+        >
+          ⊞
+        </button>
+        <button 
+          class="view-btn" 
+          [class.active]="viewMode === 'list'"
+          (click)="viewMode = 'list'"
+          type="button"
+          title="Список"
+        >
+          ☰
+        </button>
+      </div>
+      <button 
+        class="reset-filters-btn" 
+        *ngIf="hasActiveFilters"
+        (click)="resetFilters()"
+        type="button"
+      >
+        <span>↺</span>
+        <span>Сбросить</span>
+      </button>
+    </div>
+    <div class="active-filters" *ngIf="hasActiveFilters">
+      <span class="active-filters-label">Активные фильтры:</span>
+      <div class="filter-tags">
+        <span class="filter-tag" *ngIf="searchQuery">
+          Поиск: "{{ searchQuery }}"
+          <button (click)="clearSearch()" type="button">×</button>
+        </span>
+        <span class="filter-tag" *ngIf="currentCategory !== 'all'">
+          Категория: {{ currentCategory }}
+          <button (click)="onCategoryChange('all')" type="button">×</button>
+        </span>
+        <span class="filter-tag" *ngIf="currentSort !== 'default'">
+          Сортировка: {{ getSortLabel(currentSort) }}
+          <button (click)="onSortChange('default')" type="button">×</button>
+        </span>
+      </div>
+    </div>
+  </section>
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+    <p>Загрузка товаров...</p>
+  </div>
+  <div class="results-info" *ngIf="!isLoading">
+    <p *ngIf="filteredCount === totalProducts">
+      Показано все {{ totalProducts }} товаров
+    </p>
+    <p *ngIf="filteredCount !== totalProducts">
+      Показано {{ filteredCount }} из {{ totalProducts }} товаров
+    </p>
+  </div>
+  <div 
+    class="products-grid" 
+    [class.grid-view]="viewMode === 'grid'"
+    [class.list-view]="viewMode === 'list'"
+    *ngIf="!isLoading && filteredProducts.length > 0"
+  >
+    <app-product-card 
+      *ngFor="let product of filteredProducts; let i = index"
+      [product]="product"
+      [style.animation-delay]="i * 0.05 + 's'"
+      class="fade-in"
+    ></app-product-card>
+  </div>
+  <div class="empty-state" *ngIf="!isLoading && filteredProducts.length === 0">
+    <div class="empty-icon">🔍</div>
+    <h3>Товары не найдены</h3>
+    <p>Попробуйте изменить параметры поиска или фильтры</p>
+    <button class="btn btn-primary" (click)="resetFilters()" type="button">
+      Сбросить фильтры
+    </button>
+  </div>
+  <footer class="page-footer" *ngIf="!isLoading">
+    <div class="footer-content">
+      <p class="footer-text">
+        © 2024 Online Store. Все товары предоставлены 
+        <a href="https://kaspi.kz" target="_blank" rel="noopener noreferrer">Kaspi.kz</a>
+      </p>
+      <p class="footer-disclaimer">
+        Данные о товарах обновляются регулярно. Цены и наличие могут отличаться.
+      </p>
+    </div>
+  </footer>
+</div>
