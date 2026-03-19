@@ -1,0 +1,102 @@
+<div class="app-shell">
+
+  <!-- ───── HEADER ───── -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-icon">🛍️</span>
+        <div>
+          <h1 class="brand-name">Online Store</h1>
+          <p class="brand-sub">Best products from Kaspi.kz</p>
+        </div>
+      </div>
+      <!-- Favorites counter badge in header -->
+      <div class="header-fav-badge" *ngIf="favorites.length > 0">
+        ⭐ {{ favorites.length }} favorite{{ favorites.length === 1 ? '' : 's' }}
+      </div>
+    </div>
+  </header>
+
+  <!-- ───── CATEGORY NAV ───── -->
+  <nav class="category-nav">
+    <div class="category-nav-inner">
+      <span class="nav-label">Choose a category:</span>
+      <div class="category-buttons">
+        <button
+          *ngFor="let cat of categories"
+          class="cat-btn"
+          [class.active]="isSelected(cat)"
+          (click)="selectCategory(cat)"
+          type="button"
+        >
+          <span class="cat-icon">{{ cat.icon }}</span>
+          <span class="cat-name">{{ cat.name }}</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ───── MAIN CONTENT ───── -->
+  <main class="main-content">
+
+    <!-- ★ FAVORITES SECTION (always visible) -->
+    <section class="favorites-section">
+      <div class="favorites-header">
+        <h2 class="favorites-title">
+          ⭐ Favorites
+          <span class="fav-count-badge">{{ favorites.length }}</span>
+        </h2>
+      </div>
+
+      <!-- Empty state -->
+      <div class="fav-empty" *ngIf="favorites.length === 0">
+        <span class="fav-empty-icon">🤍</span>
+        <p>No favorite products yet</p>
+        <small>Click "⭐ Add to Favorites" on any product card below</small>
+      </div>
+
+      <!-- Favorites grid — reuses ProductCardComponent -->
+      <div class="favorites-grid" *ngIf="favorites.length > 0">
+        <app-product-card
+          *ngFor="let product of favorites; trackBy: trackById"
+          [product]="product"
+          [isFavoritesView]="true"
+          (toggleFavorite)="toggleFavorite($event)"
+          (deleteProduct)="onDeleteFromFavorites($event)"
+        ></app-product-card>
+      </div>
+    </section>
+
+    <!-- ── PRODUCTS LIST SECTION ── -->
+    <!-- Welcome state when no category selected -->
+    <div class="welcome" *ngIf="!selectedCategory">
+      <div class="welcome-card">
+        <div class="welcome-emoji">🛒</div>
+        <h2>Browse Products</h2>
+        <p>Select a category above to see products</p>
+        <div class="category-hints">
+          <span *ngFor="let cat of categories" class="hint-chip">
+            {{ cat.icon }} {{ cat.name }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product list for selected category -->
+    <app-product-list
+      *ngIf="selectedCategory"
+      [products]="selectedProducts"
+      [categoryName]="selectedCategory.name"
+      (toggleFavorite)="toggleFavorite($event)"
+    ></app-product-list>
+
+  </main>
+
+  <!-- ───── FOOTER ───── -->
+  <footer class="app-footer">
+    <p>© 2024 Online Store &mdash; All products from
+      <a href="https://kaspi.kz" target="_blank" rel="noopener noreferrer">Kaspi.kz</a>
+    </p>
+  </footer>
+
+</div>

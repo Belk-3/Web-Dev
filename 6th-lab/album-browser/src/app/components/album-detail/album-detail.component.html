@@ -1,0 +1,66 @@
+<div class="detail-page">
+
+  <!-- Back button -->
+  <button class="btn-back" (click)="goBack()">← Back to Albums</button>
+
+  <!-- Loading skeleton -->
+  <div class="skeleton-block" *ngIf="loading">
+    <div class="sk sk-title"></div>
+    <div class="sk sk-line"></div>
+    <div class="sk sk-input"></div>
+    <div class="sk sk-btn"></div>
+  </div>
+
+  <!-- Album detail -->
+  <div class="detail-card" *ngIf="!loading && album">
+
+    <div class="detail-header">
+      <span class="album-id-badge">#{{ album.id }}</span>
+      <span class="user-badge">User {{ album.userId }}</span>
+    </div>
+
+    <h1 class="album-title">{{ album.title }}</h1>
+
+    <div class="divider"></div>
+
+    <!-- Edit section -->
+    <div class="edit-section">
+      <label class="field-label" for="titleInput">Edit Title</label>
+      <input
+        id="titleInput"
+        class="title-input"
+        type="text"
+        [(ngModel)]="editTitle"
+        placeholder="Enter new title..."
+      />
+      <div class="edit-actions">
+        <button
+          class="btn-save"
+          (click)="onSave()"
+          [disabled]="saving || !editTitle.trim()"
+        >
+          {{ saving ? 'Saving…' : 'Save Changes' }}
+        </button>
+        <span class="save-success" *ngIf="saveSuccess">✓ Saved!</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Navigation actions -->
+    <div class="nav-actions">
+      <button class="btn-photos" (click)="goToPhotos()">
+        🖼️ View Photos
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Not found -->
+  <div class="empty-state" *ngIf="!loading && !album">
+    <span>🔍</span>
+    <p>Album not found.</p>
+    <button class="btn-back" (click)="goBack()">← Go Back</button>
+  </div>
+
+</div>

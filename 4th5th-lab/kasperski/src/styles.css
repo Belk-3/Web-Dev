@@ -1,0 +1,18 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --primary: #e63946;
+  --bg-primary: #f4f6fb;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove router-outlet placeholder */
+router-outlet { display: none; }

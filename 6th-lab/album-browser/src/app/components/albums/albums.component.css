@@ -1,0 +1,166 @@
+.albums-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #e8e8f0;
+}
+
+.count {
+  color: #7c6aff;
+  font-size: 1.2rem;
+}
+
+.subtitle {
+  color: #7a7a8c;
+  font-size: 0.92rem;
+  margin-top: 0.4rem;
+}
+
+/* ── Skeleton ── */
+.skeleton-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.skeleton-card {
+  height: 56px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #16161a 25%, #1e1e24 50%, #16161a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Album list ── */
+.album-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.album-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.2rem;
+  background: #16161a;
+  border: 1px solid #2a2a35;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.12s, opacity 0.3s;
+  gap: 1rem;
+}
+
+.album-item:hover {
+  border-color: #7c6aff;
+  background: #1a1a20;
+  transform: translateX(3px);
+}
+
+.album-item.deleting {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.album-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.album-id {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #7c6aff;
+  background: rgba(124, 106, 255, 0.12);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.album-title {
+  font-size: 0.92rem;
+  color: #c8c8d8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.album-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.btn-view {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid #2a2a35;
+  border-radius: 7px;
+  background: transparent;
+  color: #9d9daf;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.btn-view:hover {
+  border-color: #7c6aff;
+  color: #7c6aff;
+  background: rgba(124, 106, 255, 0.1);
+}
+
+.btn-delete {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #2a2a35;
+  border-radius: 7px;
+  background: transparent;
+  color: #7a7a8c;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.btn-delete:hover:not(:disabled) {
+  border-color: #ff4d6d;
+  color: #ff4d6d;
+  background: rgba(255, 77, 109, 0.1);
+}
+
+.btn-delete:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 4rem 0;
+  color: #7a7a8c;
+  font-size: 1rem;
+}
+
+.empty-state span { font-size: 2.5rem; }

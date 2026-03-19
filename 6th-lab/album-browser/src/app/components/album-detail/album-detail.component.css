@@ -1,0 +1,214 @@
+.detail-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  max-width: 640px;
+}
+
+/* ── Back button ── */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  border: 1px solid #2a2a35;
+  border-radius: 8px;
+  background: transparent;
+  color: #9d9daf;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: fit-content;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-back:hover {
+  border-color: #7c6aff;
+  color: #7c6aff;
+}
+
+/* ── Skeleton ── */
+.skeleton-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  background: #16161a;
+  border: 1px solid #2a2a35;
+  border-radius: 14px;
+}
+
+.sk {
+  border-radius: 6px;
+  background: linear-gradient(90deg, #16161a 25%, #1e1e24 50%, #16161a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.sk-title { height: 32px; width: 60%; }
+.sk-line  { height: 16px; width: 40%; }
+.sk-input { height: 44px; }
+.sk-btn   { height: 40px; width: 140px; }
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Detail card ── */
+.detail-card {
+  padding: 2rem;
+  background: #16161a;
+  border: 1px solid #2a2a35;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.album-id-badge {
+  padding: 0.25rem 0.65rem;
+  background: rgba(124, 106, 255, 0.12);
+  border: 1px solid rgba(124, 106, 255, 0.25);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #9d8fff;
+  letter-spacing: 0.04em;
+}
+
+.user-badge {
+  padding: 0.25rem 0.65rem;
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #4ade80;
+}
+
+.album-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #e8e8f0;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.divider {
+  height: 1px;
+  background: #2a2a35;
+}
+
+/* ── Edit section ── */
+.edit-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.field-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a7a8c;
+}
+
+.title-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #0d0d0f;
+  border: 1px solid #2a2a35;
+  border-radius: 8px;
+  color: #e8e8f0;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.title-input:focus {
+  border-color: #7c6aff;
+  box-shadow: 0 0 0 3px rgba(124, 106, 255, 0.15);
+}
+
+.edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-save {
+  padding: 0.6rem 1.4rem;
+  background: #7c6aff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.btn-save:hover:not(:disabled) { background: #9580ff; }
+
+.btn-save:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.save-success {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #4ade80;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Nav actions ── */
+.nav-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-photos {
+  padding: 0.65rem 1.4rem;
+  background: rgba(124, 106, 255, 0.1);
+  border: 1px solid rgba(124, 106, 255, 0.3);
+  border-radius: 8px;
+  color: #9d8fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-photos:hover {
+  background: rgba(124, 106, 255, 0.2);
+  border-color: #7c6aff;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 0;
+  color: #7a7a8c;
+}
+
+.empty-state span { font-size: 2.5rem; }

@@ -1,0 +1,24 @@
+<section class="product-list-section">
+
+  <div class="list-header">
+    <h2 class="list-title">{{ categoryName }}</h2>
+    <span class="product-count">{{ displayedProducts.length }} product(s)</span>
+  </div>
+
+  <div class="products-grid" *ngIf="displayedProducts.length > 0">
+    <app-product-card
+      *ngFor="let product of displayedProducts; trackBy: trackById"
+      [product]="product"
+      [isFavoritesView]="false"
+      (toggleFavorite)="onToggleFavorite($event)"
+      (deleteProduct)="onDelete($event)"
+    ></app-product-card>
+  </div>
+
+  <div class="empty-state" *ngIf="displayedProducts.length === 0">
+    <div class="empty-icon">📭</div>
+    <h3>No products in this category</h3>
+    <p>All products have been removed. Switch to another category.</p>
+  </div>
+
+</section>

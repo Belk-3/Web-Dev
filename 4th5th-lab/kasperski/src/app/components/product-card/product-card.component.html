@@ -1,0 +1,122 @@
+<article class="card" [class.is-favorite]="product.isFavorite">
+
+  <!-- ── Image ───────────────────────────────────── -->
+  <div class="card-image-wrap" (click)="openGallery()">
+    <img [src]="currentImage" [alt]="product.name" class="card-img" loading="lazy">
+    <span class="multi-badge" *ngIf="product.images.length > 1">
+      🖼 {{ product.images.length }}
+    </span>
+    <span class="stock-badge" [class.in]="product.inStock" [class.out]="!product.inStock">
+      {{ product.inStock ? 'In stock' : 'Out of stock' }}
+    </span>
+    <!-- Favorite glow indicator -->
+    <span class="fav-indicator" *ngIf="product.isFavorite">⭐</span>
+  </div>
+
+  <!-- ── Body ────────────────────────────────────── -->
+  <div class="card-body">
+    <h3 class="card-title">
+      <a [href]="product.link" target="_blank" rel="noopener noreferrer">{{ product.name }}</a>
+    </h3>
+    <p class="card-desc">{{ product.description }}</p>
+
+    <!-- Rating -->
+    <div class="rating-row">
+      <span *ngFor="let s of getStars()" class="star" [class.filled]="s===1" [class.half]="s===0.5">★</span>
+      <span class="rating-num">{{ product.rating }}</span>
+      <span class="review-count">({{ product.reviewCount }})</span>
+    </div>
+
+    <!-- Price -->
+    <div class="price-row">
+      <span class="price">{{ formatPrice(product.price) }} ₸</span>
+    </div>
+
+    <!-- ★ FAVORITE BUTTON -->
+    <button
+      class="btn btn-favorite"
+      [class.active]="product.isFavorite"
+      (click)="onToggleFavorite()"
+      type="button"
+    >
+      {{ product.isFavorite ? '⭐ In Favorites' : '⭐ Add to Favorites' }}
+    </button>
+
+    <!-- Actions row -->
+    <div class="actions-row">
+      <!-- Kaspi link -->
+      <a [href]="product.link" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+        🛒 Kaspi.kz
+      </a>
+
+      <!-- Like -->
+      <button class="btn btn-like" [class.pop]="likeAnimating" (click)="onLike()" type="button">
+        ❤ <span class="like-count">{{ product.likes }}</span>
+      </button>
+
+      <!-- Share -->
+      <div class="share-wrap" (mouseleave)="closeShareOptions()">
+        <button class="btn btn-secondary" (click)="toggleShareOptions()" type="button">📤</button>
+        <div class="share-dropdown" *ngIf="showShareOptions" (click)="stop($event)">
+          <button class="share-opt wa"  (click)="shareViaWhatsApp()" type="button">💬 WhatsApp</button>
+          <button class="share-opt tg"  (click)="shareViaTelegram()" type="button">✈️ Telegram</button>
+        </div>
+      </div>
+
+      <!-- Delete (hidden in favorites view — use ⭐ button to remove) -->
+      <button
+        class="btn btn-delete"
+        (click)="requestDelete()"
+        type="button"
+        title="Delete"
+        *ngIf="!isFavoritesView"
+      >🗑</button>
+
+      <!-- Remove from favorites (shown only in favorites panel) -->
+      <button
+        class="btn btn-remove-fav"
+        (click)="onToggleFavorite()"
+        type="button"
+        *ngIf="isFavoritesView"
+      >✕ Remove</button>
+    </div>
+  </div>
+
+  <!-- ── Delete confirmation ─────────────────────── -->
+  <div class="confirm-overlay" *ngIf="showDeleteConfirm" (click)="cancelDelete()">
+    <div class="confirm-box" (click)="stop($event)">
+      <p>Remove <strong>{{ product.name }}</strong>?</p>
+      <div class="confirm-actions">
+        <button class="btn btn-delete-confirm" (click)="confirmDelete()" type="button">Yes, remove</button>
+        <button class="btn btn-cancel"         (click)="cancelDelete()"  type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Gallery modal ───────────────────────────── -->
+  <div class="gallery-overlay" *ngIf="showGallery" (click)="closeGallery()">
+    <div class="gallery-box" (click)="stop($event)">
+      <button class="gallery-close" (click)="closeGallery()" type="button">×</button>
+      <div class="gallery-main">
+        <img [src]="currentImage" [alt]="product.name">
+        <button class="gallery-nav prev" (click)="prevImage()" *ngIf="product.images.length > 1" type="button">‹</button>
+        <button class="gallery-nav next" (click)="nextImage()" *ngIf="product.images.length > 1" type="button">›</button>
+      </div>
+      <div class="gallery-thumbs" *ngIf="product.images.length > 1">
+        <button
+          *ngFor="let img of product.images; let i = index"
+          class="thumb"
+          [class.active]="i === currentImageIndex"
+          (click)="selectImage(i)"
+          type="button"
+        >
+          <img [src]="img" [alt]="product.name">
+        </button>
+      </div>
+      <div class="gallery-counter" *ngIf="product.images.length > 1">
+        {{ currentImageIndex + 1 }} / {{ product.images.length }}
+      </div>
+    </div>
+  </div>
+
+</article>

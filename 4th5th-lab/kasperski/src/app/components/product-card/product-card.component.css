@@ -1,0 +1,593 @@
+/* ── Card shell ──────────────────────────────────── */
+
+.card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: visible;
+    /* allow confirm-overlay shadow to breathe */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* FIX: use will-change + translateZ so GPU handles it — no twitch */
+    transition: box-shadow .25s ease;
+    position: relative;
+    will-change: box-shadow;
+}
+
+
+/* FIX: lift with box-shadow only, NEVER move the element — stops hover loop */
+
+.card:hover {
+    box-shadow: 0 10px 32px rgba(0, 0, 0, .14);
+}
+
+
+/* ── Image container ─────────────────────────────── */
+
+.card-image-wrap {
+    position: relative;
+    /* FIX: fixed aspect-ratio box so the card never changes height */
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #f5f5f5;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 16px 16px 0 0;
+    flex-shrink: 0;
+    /* never let the grid crush this */
+}
+
+.card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 14px;
+    /* FIX: only GPU-composited property (transform), no layout reflow */
+    transition: transform .35s cubic-bezier(.25, .46, .45, .94);
+    /* FIX: promote to own layer so siblings don't repaint */
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+
+/* FIX: scale from centre, capped at 1.06 so it never exits the container */
+
+.card-image-wrap:hover .card-img {
+    transform: scale(1.06);
+}
+
+
+/* Badges */
+
+.multi-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, .62);
+    color: #fff;
+    padding: 3px 9px;
+    border-radius: 12px;
+    font-size: .75rem;
+    pointer-events: none;
+}
+
+.stock-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: .72rem;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.stock-badge.in {
+    background: #d4f4dd;
+    color: #1e7e34;
+}
+
+.stock-badge.out {
+    background: #fde8e8;
+    color: #c0392b;
+}
+
+.fav-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+}
+
+
+/* ── Body ────────────────────────────────────────── */
+
+.card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+}
+
+.card-title {
+    font-size: .95rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.card-title a {
+    color: #222;
+    text-decoration: none;
+}
+
+.card-title a:hover {
+    color: #e63946;
+    text-decoration: underline;
+}
+
+.card-desc {
+    font-size: .82rem;
+    color: #666;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+/* ── Rating ──────────────────────────────────────── */
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.star {
+    color: #ddd;
+    font-size: .95rem;
+}
+
+.star.filled {
+    color: #f5a623;
+}
+
+.star.half {
+    color: #f5a623;
+    opacity: .5;
+}
+
+.rating-num {
+    font-size: .85rem;
+    font-weight: 600;
+    margin-left: 4px;
+    color: #444;
+}
+
+.review-count {
+    font-size: .78rem;
+    color: #999;
+}
+
+
+/* ── Price ───────────────────────────────────────── */
+
+.price-row {
+    margin-top: auto;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #e63946;
+}
+
+
+/* ── Buttons ─────────────────────────────────────── */
+
+.actions-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: .82rem;
+    font-weight: 600;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    /* FIX: no transform on regular buttons — avoid conflict with pop animation */
+}
+
+.btn-primary {
+    background: #e63946;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #c1121f;
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #555;
+}
+
+.btn-secondary:hover {
+    background: #e4e4e4;
+}
+
+
+/* Like button
+   FIX: separate the pop animation from hover so they never fight each other */
+
+.btn-like {
+    background: #fff0f0;
+    color: #e63946;
+    border: 1.5px solid #e63946;
+    /* FIX: NO transition:transform here — animation handles it */
+}
+
+.btn-like:hover {
+    background: #ffe0e0;
+}
+
+
+/* FIX: only animate when .pop class is present; remove transform from transition */
+
+.btn-like.pop {
+    animation: likePop .35s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes likePop {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1.32);
+    }
+    60% {
+        transform: scale(.92);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.like-count {
+    font-weight: 700;
+    min-width: 18px;
+    text-align: center;
+}
+
+.btn-delete {
+    background: #fff5f5;
+    color: #c0392b;
+    border: 1.5px solid #e0b3b3;
+    margin-left: auto;
+}
+
+.btn-delete:hover {
+    background: #fde8e8;
+    border-color: #c0392b;
+}
+
+
+/* ── Favorites button ────────────────────────────── */
+
+.btn-favorite {
+    width: 100%;
+    justify-content: center;
+    background: #fffbea;
+    color: #b8860b;
+    border: 1.5px solid #f5c518;
+    font-size: .85rem;
+    padding: 9px 14px;
+    border-radius: 8px;
+}
+
+.btn-favorite:hover {
+    background: #fff3c0;
+    border-color: #e6b800;
+}
+
+.btn-favorite.active {
+    background: #f5c518;
+    color: #333;
+    border-color: #e6b800;
+    font-weight: 700;
+}
+
+
+/* Favorite glow on card shell */
+
+.card.is-favorite {
+    border: 2px solid #f5c518;
+    box-shadow: 0 0 0 3px rgba(245, 197, 24, .18), 0 2px 12px rgba(0, 0, 0, .07);
+}
+
+
+/* Remove-from-favorites */
+
+.btn-remove-fav {
+    background: #fff0f0;
+    color: #c0392b;
+    border: 1.5px solid #e0b3b3;
+    font-size: .82rem;
+    margin-left: auto;
+}
+
+.btn-remove-fav:hover {
+    background: #fde8e8;
+    border-color: #c0392b;
+}
+
+
+/* ── Share dropdown ──────────────────────────────── */
+
+.share-wrap {
+    position: relative;
+}
+
+.share-dropdown {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .15);
+    overflow: hidden;
+    z-index: 10;
+    min-width: 140px;
+}
+
+.share-opt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    width: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: .85rem;
+    transition: background .15s;
+}
+
+.share-opt.wa:hover {
+    background: #e9fbe9;
+}
+
+.share-opt.tg:hover {
+    background: #e8f4fd;
+}
+
+
+/* ── Delete confirmation overlay ─────────────────── */
+
+.confirm-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    z-index: 20;
+}
+
+.confirm-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    width: 80%;
+    max-width: 280px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .2);
+}
+
+.confirm-box p {
+    font-size: .9rem;
+    color: #333;
+    margin: 0 0 16px;
+}
+
+.confirm-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-delete-confirm {
+    background: #e63946;
+    color: #fff;
+}
+
+.btn-delete-confirm:hover {
+    background: #c1121f;
+}
+
+.btn-cancel {
+    background: #eee;
+    color: #555;
+}
+
+.btn-cancel:hover {
+    background: #ddd;
+}
+
+
+/* ── Gallery modal ───────────────────────────────── */
+
+.gallery-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .84);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    /* FIX: fade-in so it doesn't flash */
+    animation: fadeIn .18s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.gallery-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px 24px 18px;
+    /* FIX: fixed width so box never resizes between images */
+    width: min(92vw, 620px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.gallery-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 1.7rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+    z-index: 2;
+}
+
+.gallery-close:hover {
+    color: #e63946;
+}
+
+
+/* FIX: fixed-height image area — images never shift the layout */
+
+.gallery-main {
+    position: relative;
+    /* fixed container height — image centres inside it */
+    height: 360px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-main img {
+    /* FIX: contain inside the fixed box, no layout shifts */
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    /* FIX: smooth cross-fade when switching images */
+    transition: opacity .2s ease;
+    will-change: opacity;
+}
+
+
+/* Nav arrows */
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, .48);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background .15s;
+    /* FIX: prevent arrows from being included in image hover area */
+    z-index: 2;
+}
+
+.gallery-nav:hover {
+    background: rgba(0, 0, 0, .72);
+}
+
+.gallery-nav.prev {
+    left: 10px;
+}
+
+.gallery-nav.next {
+    right: 10px;
+}
+
+
+/* Thumbnails */
+
+.gallery-thumbs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.thumb {
+    width: 58px;
+    height: 58px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #f5f5f5;
+    padding: 0;
+    transition: border-color .15s;
+    flex-shrink: 0;
+}
+
+.thumb:hover {
+    border-color: #aaa;
+}
+
+.thumb.active {
+    border-color: #e63946;
+}
+
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-counter {
+    text-align: center;
+    font-size: .82rem;
+    color: #999;
+}

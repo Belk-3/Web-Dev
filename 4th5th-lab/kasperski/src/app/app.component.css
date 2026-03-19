@@ -1,0 +1,190 @@
+/* ── Layout ──────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg-primary, #f4f6fb);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ── Header ─────────────────────────────────────── */
+.app-header {
+  background: linear-gradient(135deg, #e63946 0%, #c1121f 100%);
+  color: #fff;
+  padding: 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,.18);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-icon { font-size: 2rem; }
+.brand-name { font-size: 1.5rem; font-weight: 700; margin: 0; }
+.brand-sub  { font-size: .85rem; opacity: .85; margin: 0; }
+
+/* ── Category Nav ────────────────────────────────── */
+.category-nav {
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 6px rgba(0,0,0,.06);
+}
+.category-nav-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.nav-label {
+  font-size: .85rem;
+  color: #888;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.category-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.cat-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border-radius: 30px;
+  border: 2px solid #e0e0e0;
+  background: #fafafa;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 500;
+  color: #444;
+  transition: all .2s ease;
+}
+.cat-btn:hover {
+  border-color: #e63946;
+  color: #e63946;
+  background: #fff5f5;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(230,57,70,.15);
+}
+.cat-btn.active {
+  background: #e63946;
+  border-color: #e63946;
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(230,57,70,.35);
+}
+.cat-icon { font-size: 1.15rem; }
+.cat-name { font-size: .9rem; }
+
+/* ── Main ───────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+/* ── Welcome ─────────────────────────────────────── */
+.welcome { display: flex; justify-content: center; align-items: center; min-height: 60vh; }
+.welcome-card {
+  text-align: center;
+  background: #fff;
+  border-radius: 20px;
+  padding: 56px 48px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  max-width: 480px;
+}
+.welcome-emoji { font-size: 4rem; margin-bottom: 16px; }
+.welcome-card h2 { font-size: 1.8rem; margin: 0 0 10px; color: #222; }
+.welcome-card p  { color: #777; margin: 0 0 28px; }
+.category-hints { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.hint-chip {
+  background: #f0f0f0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: .85rem;
+  color: #555;
+}
+
+/* ── Footer ─────────────────────────────────────── */
+.app-footer {
+  background: #222;
+  color: #aaa;
+  text-align: center;
+  padding: 18px;
+  font-size: .85rem;
+}
+.app-footer a { color: #e63946; text-decoration: none; }
+.app-footer a:hover { text-decoration: underline; }
+
+/* ── Header favorites badge ──────────────────────── */
+.header-fav-badge {
+  background: rgba(255,255,255,.22);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: .9rem;
+  font-weight: 600;
+  border: 1.5px solid rgba(255,255,255,.4);
+  backdrop-filter: blur(4px);
+}
+
+/* ── Favorites Section ───────────────────────────── */
+.favorites-section {
+  background: #fffbea;
+  border: 2px solid #f5c518;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.favorites-header {
+  margin-bottom: 16px;
+}
+
+.favorites-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fav-count-badge {
+  background: #f5c518;
+  color: #333;
+  font-size: .85rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 12px;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* Empty state */
+.fav-empty {
+  text-align: center;
+  padding: 28px 16px;
+  color: #999;
+}
+.fav-empty-icon { font-size: 2rem; display: block; margin-bottom: 6px; }
+.fav-empty p    { margin: 0 0 4px; font-size: .95rem; color: #666; }
+.fav-empty small { font-size: .8rem; color: #aaa; }
+
+/* Favorites grid — horizontal scroll on small screens */
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}

@@ -1,0 +1,47 @@
+<div class="albums-page">
+  <div class="page-header">
+    <h1>Albums <span class="count" *ngIf="!loading">({{ albums.length }})</span></h1>
+    <p class="subtitle">Click an album to view details and photos.</p>
+  </div>
+
+  <!-- Loading skeleton -->
+  <div class="skeleton-grid" *ngIf="loading">
+    <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6,7,8]"></div>
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!loading && albums.length === 0">
+    <span>📭</span>
+    <p>No albums found.</p>
+  </div>
+
+  <!-- Album list -->
+  <ul class="album-list" *ngIf="!loading && albums.length > 0">
+    <li
+      class="album-item"
+      *ngFor="let album of albums"
+      (click)="goToDetail(album.id)"
+      [class.deleting]="deletingIds.has(album.id)"
+    >
+      <div class="album-left">
+        <span class="album-id">#{{ album.id }}</span>
+        <span class="album-title">{{ album.title }}</span>
+      </div>
+      <div class="album-actions" (click)="$event.stopPropagation()">
+        <button
+          class="btn-view"
+          (click)="goToDetail(album.id)"
+          title="View details"
+        >View →</button>
+        <button
+          class="btn-delete"
+          (click)="onDelete($event, album.id)"
+          [disabled]="deletingIds.has(album.id)"
+          title="Delete album"
+        >
+          {{ deletingIds.has(album.id) ? '…' : '✕' }}
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
