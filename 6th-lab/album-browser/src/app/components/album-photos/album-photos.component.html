@@ -1,0 +1,38 @@
+<div class="photos-page">
+
+  <div class="photos-header">
+    <button class="btn-back" (click)="goBack()">← Back to Album</button>
+    <div class="header-text" *ngIf="!loading">
+      <h1>Album <span class="accent">#{{ albumId }}</span> Photos</h1>
+      <p class="subtitle">{{ photos.length }} photos</p>
+    </div>
+  </div>
+
+  <!-- Loading skeleton grid -->
+  <div class="photo-grid" *ngIf="loading">
+    <div class="skeleton-photo" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12]"></div>
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!loading && photos.length === 0">
+    <span>🖼️</span>
+    <p>No photos found for this album.</p>
+  </div>
+
+  <!-- Photo grid -->
+  <div class="photo-grid" *ngIf="!loading && photos.length > 0">
+    <div class="photo-card" *ngFor="let photo of photos">
+      <div class="photo-img-wrap">
+        <img
+          [src]="photo.thumbnailUrl"
+          [alt]="photo.title"
+          loading="lazy"
+        />
+      </div>
+      <div class="photo-overlay">
+        <p class="photo-title">{{ photo.title }}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
