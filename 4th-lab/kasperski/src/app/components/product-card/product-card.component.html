@@ -1,0 +1,105 @@
+<article class="product-card" [class.gallery-open]="showGallery">
+  <div class="product-image-container">
+    <img 
+      [src]="currentImage" 
+      [alt]="product.name" 
+      class="product-image"
+      (click)="toggleGallery()"
+      loading="lazy"
+    >
+    <span class="category-badge" *ngIf="product.category">{{ product.category }}</span>
+    <span class="stock-badge" *ngIf="product.inStock !== undefined" [class.in-stock]="product.inStock" [class.out-of-stock]="!product.inStock">
+      {{ product.inStock ? 'В наличии' : 'Нет в наличии' }}
+    </span>
+  </div>
+  <div class="product-info">
+    <h3 class="product-name" (click)="openProductLink()">{{ product.name }}</h3>
+    <p class="product-description">{{ product.description }}</p>
+    <div class="rating-section" *ngIf="product.rating">
+      <div class="star-rating">
+        <span 
+          *ngFor="let star of getStarArray(); let i = index" 
+          class="star"
+          [class.filled]="star === 1"
+          [class.half]="star === 0.5"
+        >
+          ★
+        </span>
+      </div>
+      <span class="rating-value">{{ product.rating }}</span>
+      <span class="review-count" *ngIf="product.reviewCount">({{ product.reviewCount }} отзывов)</span>
+    </div>
+    <div class="price-section">
+      <span class="price">{{ formatPrice(product.price) }}<span class="price-currency">₸</span></span>
+    </div>
+    <div class="action-buttons">
+      <a 
+        [href]="product.link" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="btn btn-primary view-btn"
+      >
+        <span>🛒</span>
+        <span>Kaspi.kz</span>
+      </a>
+      <div class="share-dropdown" (mouseleave)="closeShareOptions()">
+        <button 
+          class="btn btn-secondary share-main-btn" 
+          (click)="toggleShareOptions()"
+          type="button"
+        >
+          <span>📤</span>
+          <span>Поделиться</span>
+        </button>
+        <div class="share-options" *ngIf="showShareOptions" (click)="stopPropagation($event)">
+          <button class="share-btn whatsapp" (click)="shareViaWhatsApp()">
+            <span>💬</span>
+            <span>WhatsApp</span>
+          </button>
+          <button class="share-btn telegram" (click)="shareViaTelegram()">
+            <span>✈️</span>
+            <span>Telegram</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gallery-modal" *ngIf="showGallery" (click)="closeGallery()">
+    <div class="gallery-content" (click)="stopPropagation($event)">
+      <button class="gallery-close" (click)="closeGallery()" type="button">×</button>
+      <div class="gallery-main-image">
+        <img [src]="currentImage" [alt]="product.name">
+        <button 
+          class="gallery-nav prev" 
+          (click)="previousImage()" 
+          *ngIf="product.images.length > 1"
+          type="button"
+        >
+          ‹
+        </button>
+        <button 
+          class="gallery-nav next" 
+          (click)="nextImage()" 
+          *ngIf="product.images.length > 1"
+          type="button"
+        >
+          ›
+        </button>
+      </div>
+      <div class="gallery-thumbnails" *ngIf="product.images.length > 1">
+        <button 
+          *ngFor="let img of product.images; let i = index"
+          class="thumbnail"
+          [class.active]="i === currentImageIndex"
+          (click)="selectImage(i)"
+          type="button"
+        >
+          <img [src]="img" [alt]="product.name + ' - ' + (i + 1)">
+        </button>
+      </div>
+      <div class="image-counter" *ngIf="product.images.length > 1">
+        {{ currentImageIndex + 1 }} / {{ product.images.length }}
+      </div>
+    </div>
+  </div>
+</article>
