@@ -14,7 +14,7 @@ class Product:
     def set_price(self, price ): self.price = price
     def set_amount(self, n): self.amount = n
     def dec_amount(self, n: int): 
-        if self.amount < 0:
+        if self.amount <= 0:
             return "THE TOTAL AMOUNT IS 0"
         
         if self.amount - n < 0:
@@ -23,7 +23,7 @@ class Product:
     def inc_amount(self, n: int): self.amount += n
      
     def __str__(self):
-        return f"""Product ID: {self.id}\nProduct Name: {self.name}\nProduct Price: {self.price}\nProduct Amount: {self.amount}"""
+        return f"""Product ID: {self.id}\n Product Name: {self.name}\nProduct Price: {self.price}\n Product Amount: {self.amount}"""
 
 class Cake(Product):
     def __init__(self,
@@ -38,7 +38,7 @@ class Cake(Product):
         self.is_cream = is_cream
     
     def __str__(self):
-        return f"""{super().__str__()}\nCake Radius: {self.radius}\nHas Cream: {self.is_cream}"""
+        return f"""{super().__str__()}\n Cake Radius: {self.radius}\n Has Cream: {self.is_cream}"""
 
     def area(self):
         import math
@@ -65,7 +65,7 @@ class Drink(Product):
         self.is_cold = is_cold
 
     def __str__(self):
-        return ( super().__str__() + f"\nVolume: {self.volume_ml} ml\nCold drink: {self.is_cold}")
+        return ( super().__str__() + f"\n Volume: {self.volume_ml} ml\n Cold drink: {self.is_cold}")
 
     def consume(self):
         if(self.amount > 0):
